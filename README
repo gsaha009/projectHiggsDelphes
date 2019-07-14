@@ -1,0 +1,22 @@
+#Instructions & doubts
+
+//This package is using Delphes headers and libraries from Delphes-3.4.1
+//The makefile has been modified already
+//LinkDef and AnalysisSpaceTreeMaker_xr.rootmap are confusing.
+//******************************************************************//
+//***PLEASE HAVE A LOOK AT THE MAKEFILE (Makefile.multileptonMVA)***//
+//******************************************************************//
+
+//***To Compile***// 
+1). source setup.sh
+2). make clean -f Makefile.exoAnalysis
+3). make cling -f Makefile.exoAnalysis
+4). make -f Makefile.exoAnalysis
+
+***The executable is exotica***
+
+//***To Run***//
+[[[[[[[[[[<executable> <inputFileList.txt/list> <outputFile.root>]]]]]]]]]]
+./exotica inputFile.list test.root > test.log 2>&1
+
+//Please look at the log file: "test.log"
