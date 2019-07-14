@@ -12,4 +12,4 @@ make cling -f Makefile
   
 make -f Makefile
 
-<executable> <inputFiles.list> <output.root> 
+<bla.exe> <inputFiles.list> <output.root> 
