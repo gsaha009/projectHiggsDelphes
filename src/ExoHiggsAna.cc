@@ -26,6 +26,7 @@
 #include "TH1K.h"
 
 #include "AnaUtil.h"
+#include "ZCandidate.h"
 #include "ExoHiggsAna.h"
 
 
@@ -43,7 +44,7 @@ using std::ios;
 using std::setiosflags;
 using std::resetiosflags;
 
-
+using namespace ZSpace;
 // -----------
 // Constructor
 // -----------
@@ -67,6 +68,7 @@ bool ExoHiggsAna::beginJob(const string& inputFile, string& outputFile)
   if (!histf) return false;
   histf->cd();
   histf->mkdir("ObjectSelection");
+  histf->mkdir("LepPairSelection");
   histf->mkdir("Analysis");
 
   chain = new TChain("Delphes");
@@ -146,12 +148,27 @@ void ExoHiggsAna::bookHistograms()
   new TH1D ("JetNSubJetsSoftDropped", "", 50, -0.5, 49.5);
   
   
+  histf->cd();
+  histf->cd("LepPairSelection");
+  new TH1D("dR_l1Zl1", "", 100, 0., 5.0);
+  new TH1D("dR_l1Zl2", "", 100, 0., 5.0);
+  new TH1D("dR_l1Z", "", 100, 0., 5.0);
+  new TH1D("dR_l2Zl1", "", 100, 0., 5.0);
+  new TH1D("dR_l2Zl2", "", 100, 0., 5.0);
+  new TH1D("dR_l2Z", "", 100, 0., 5.0);
+  new TH1D("dR_l1l2", "", 100, 0., 5.0);
+  new TH1D("leptonPairCutFlow", "", 6, -0.5, 5.5);
+  new TH1D("hCandCutFlow", "", 6, -0.5, 5.5);
+
+
+
+
 
   histf->cd();
   histf->cd("Analysis");
 
   //Event Hists
-  new TH1D("evtCutFlow", "Event CutFlow", 3, -0.5, 2.5);
+  new TH1D("evtCutFlow", "Event CutFlow", 8, -0.5, 7.5);
   new TH1D("eventWt", "HepMCEvent Weight",5, -2.5, 2.5);
   new TH1D("nvtx", "Number of Primary vertices", 60, -0.5, 59.5);
   new TH1D("met", "Missing Transver Energy",200, 0, 200);
@@ -174,9 +191,11 @@ void ExoHiggsAna::bookHistograms()
   new TH1D("Jet4Pt", "pT of 4th Jet",400, 0.0, 800.0);
   new TH1D("Jet5Pt", "pT of 5th Jet",400, 0.0, 800.0);
   new TH1D("Jet6Pt", "pT of 6th Jet",400, 0.0, 800.0);
-  new TH1D("muInvMass", "Invarant Mass of 2 Muons", 400, 0.0, 400.0);
-  new TH1D("muSumCharge", "Charge Sum of 2 Muons", 5, -0.5, 4.5);
-  new TH1D("muSumChargeFromZ", "Charge Sum of 2 Muons", 5, -0.5, 4.5);
+  new TH1D("hLepPt", "LeptonPt", 400, 0.0, 400.0);
+  new TH1D("nZCand", "nZ Candidates", 5, -0.5, 4.5);
+  new TH1D("massZcand", "ZMass", 500, 0.0, 500.0);
+  new TH1D("nGoodLeptons", "", 10, -0.5, 9.5);
+  new TH1D("Z2mass", "hMass", 500, 0.0, 500.0);
 
   histf->cd();
   histf->ls();
@@ -235,7 +254,7 @@ void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
     histf->cd("Analysis");
 
 
-    AnaUtil::fillHist1D("evtCutFlow", 0); //events processed
+    AnaUtil::fillHist1D("evtCutFlow", 0, evWt); //events processed
     int nelec = BrElec->GetEntriesFast();
     AnaUtil::fillHist1D("nRawEle", nelec, evWt);
     int nmuon = BrMuon->GetEntriesFast();
@@ -340,18 +359,21 @@ void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
     histf->cd();
     histf->cd("Analysis");
 
-    AnaUtil::fillHist1D("nGoodMuon", MuonColl.size(), evWt);
+    int nGoodMuon = MuonColl.size();
+    int nGoodEle  = ElectronColl.size();
+    int nGoodJet  = JetColl.size();
+    AnaUtil::fillHist1D("nGoodMuon", nGoodMuon, evWt);
     if (MuonColl.size() > 0) AnaUtil::fillHist1D("Muon1Pt", MuonColl[0].PT, evWt);
     if (MuonColl.size() > 1) AnaUtil::fillHist1D("Muon2Pt", MuonColl[1].PT, evWt);
     if (MuonColl.size() > 2) AnaUtil::fillHist1D("Muon3Pt", MuonColl[2].PT, evWt);
     if (MuonColl.size() > 3) AnaUtil::fillHist1D("Muon4Pt", MuonColl[3].PT, evWt);
 
-    AnaUtil::fillHist1D("nGoodElectron", ElectronColl.size(), evWt);
+    AnaUtil::fillHist1D("nGoodElectron", nGoodEle, evWt);
     if (ElectronColl.size() > 0) AnaUtil::fillHist1D("Electron1Pt", ElectronColl[0].PT, evWt);
     if (ElectronColl.size() > 1) AnaUtil::fillHist1D("Electron2Pt", ElectronColl[1].PT, evWt);
     if (ElectronColl.size() > 2) AnaUtil::fillHist1D("Electron3Pt", ElectronColl[2].PT, evWt);
 
-    AnaUtil::fillHist1D("nGoodJet", JetColl.size(), evWt);
+    AnaUtil::fillHist1D("nGoodJet", nGoodJet, evWt);
     if (JetColl.size() > 0) AnaUtil::fillHist1D("Jet1Pt", JetColl[0].PT, evWt);
     if (JetColl.size() > 1) AnaUtil::fillHist1D("Jet2Pt", JetColl[1].PT, evWt);
     if (JetColl.size() > 2) AnaUtil::fillHist1D("Jet3Pt", JetColl[2].PT, evWt);
@@ -359,39 +381,67 @@ void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
     if (JetColl.size() > 4) AnaUtil::fillHist1D("Jet5Pt", JetColl[4].PT, evWt);
     if (JetColl.size() > 5) AnaUtil::fillHist1D("Jet6Pt", JetColl[5].PT, evWt);
     
-    if (ElectronColl.size() < 1) continue;
-    AnaUtil::fillHist1D("evtCutFlow", 1);
+
+
+    if (nGoodMuon < 2 && nGoodEle < 2) continue;
+    AnaUtil::fillHist1D("evtCutFlow", 1, evWt);
+
+    // leptons coming from the h1 should have higher pT
+    double hLepPt = (nGoodMuon > 0) ? MuonColl[0].PT : 0.0;
+    if (nGoodEle > 0 && ElectronColl[0].PT > hLepPt)
+      hLepPt = ElectronColl[0].PT;
+    AnaUtil::fillHist1D("hLepPt", hLepPt, evWt);
+
+    if (hLepPt < 50.0) continue;
+    AnaUtil::fillHist1D("evtCutFlow", 2, evWt);
+
+
+    // Find Z candidates
+    std::vector<ZCandidate> ZCandList;
+    if (nGoodMuon >= 2) ZSelector(MuonColl, ZCandList);
+    if (nGoodEle  >= 2) ZSelector(ElectronColl, ZCandList);
+    AnaUtil::fillHist1D("nZcand", ZCandList.size(), evWt);
+
+    if (ZCandList.empty()) continue;
+    AnaUtil::fillHist1D("evtCutFlow", 3, evWt);
     
-    if (MuonColl.size() < 3) continue;
-    AnaUtil::fillHist1D("evtCutFlow", 2);
+    // Z candidates                                        
+    if (ZCandList.size() > 1) 
+      std::sort(std::begin(ZCandList), std::end(ZCandList), dmComparator);
+    for (const auto& z: ZCandList) 
+      AnaUtil::fillHist1D("massZcand", z.mass, evWt);
+    
+    // The first Z candidate
+    const ZCandidate& ZCand = ZCandList[0];
+    if (ZCand.mass < 70 || ZCand.mass > 120) continue;
+    AnaUtil::fillHist1D("evtCutFlow", 4, evWt);
 
-    //---Now the events contain atleat 1 electron and 3 muons---//
+    // The second Z candidate                                                   
+    if (ZCandList.size() > 1) AnaUtil::fillHist1D("Z2mass", ZCandList[1].mass, evWt);
 
-    int nZs = 0;
-    for (size_t i = 0; i < MuonColl.size(); ++i){
-      int muIndex = -1;
-      if (i == muIndex) continue;
-      bool hasZtoMuMu {false};
-      auto &mui = MuonColl.at(i);
-      TLorentzVector muip4 = mui.P4();
-      for (size_t j = i+1; j < MuonColl.size(); ++j){
-	auto &muj = MuonColl.at(j);
-	TLorentzVector mujp4 = muj.P4();
-	double muInvM = (muip4 + mujp4).M();
-	double muSumCharge = (mui.Charge + muj.Charge);
-	AnaUtil::fillHist1D("muInvMass", muInvM, evWt);
-	AnaUtil::fillHist1D("muSumCharge", muSumCharge, evWt);
-	if (muInvM > 80 && muInvM < 110) {
-	  muIndex = j;
-	  hasZtoMuMu = true;
-	  nZs++;
-	  AnaUtil::fillHist1D("muSumChargeFromZ", muSumCharge, evWt);
-	}
-	if (hasZtoMuMu) break;
-      }
-      if (hasZtoMuMu) continue;
+    // Now require at least four tight isolated leptons
+    AnaUtil::fillHist1D("nGoodLeptons", nGoodMuon + nGoodEle, evWt);
+    if (nGoodMuon + nGoodEle < 4) continue;
+    AnaUtil::fillHist1D("evtCutFlow", 5, evWt);
 
-    }
+    // Go closer to final topology         
+    if (nGoodMuon < 1 || nGoodEle < 1) continue;
+    if (nGoodMuon < 3 && nGoodEle < 3) continue;
+    AnaUtil::fillHist1D("evtCutFlow", 6, evWt);
+
+    // Now find the ele-mu candidate          
+    std::vector<ZCandidate> leptonPairCandList;
+    histf->cd();
+    histf->cd("LepPairSelection"); //To fill the histograms mentioned in leptonPairSelector function
+
+    auto result = leptonPairSelector(MuonColl, ElectronColl, ZCand, leptonPairCandList, 170.0, evWt, 0.02);
+    if (leptonPairCandList.empty()) continue;
+    AnaUtil::fillHist1D("evtCutFlow", 7, evWt);
+
+    if (leptonPairCandList.size() > 1)
+      std::sort(std::begin(leptonPairCandList), std::end(leptonPairCandList), massComparator);
+    const ZCandidate& h1Cand = leptonPairCandList[0];
+    AnaUtil::fillHist1D("Z2mass", h1Cand.mass, evWt);
 
 
     if (verbose) {
@@ -410,9 +460,15 @@ void ExoHiggsAna::endJob() {
   histf->cd();
   histf->cd("Analysis");
   vector<string> evLabels {
-        "0) Events processed: ",
-	"1) nElectron   >= 1: ",
-	"2) nMuons      >= 3: "
+        "0) Events processed  : ",
+	  "1) nEle & nMu >=2  : ",
+	  "2) hLepPt > 50     : ",
+	  "3) no ZCand        : ",
+	  "4) 70<ZCandMass<120: ",
+	  "5) nMu+nEle >= 4   : ",
+	  "6) sigTopologyCond : ",
+	  "7) have hCand      : "
+	  
 	};
   AnaUtil::showEfficiency("evtCutFlow", evLabels, "Event Selection");  
 
