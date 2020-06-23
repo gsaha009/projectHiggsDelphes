@@ -1,0 +1,27 @@
+START
+dataType mc
+###MVA Flags###
+createMVATree 0
+readMVA 1
+MVAnetwork BDT
+MVAxmlFile /home/gsaha/DelphesHiggsProject/TMVAClassification_BDT.weights.xml
+mvaInputFile WZTo3LNu_012J_FTree.root
+###############
+lumiWtList xsec=0.58 intLumi=3000000 nevents=1500000
+histFile  WZTo3LNu_012Jets_hist_13Mar.root
+maxEvent -1
+###############
+#Cuts
+muonCutList eta=2.4 pt=7. iso=0.15
+electronCutList pt=7. eta=2.5 iso=0.11
+tauCutList eta=2.5 pt=20. dz=0.2 muVeto=0.5 eleVeto=0.5 isol=0.5
+jetCutList eta=4.7 pt=20 mindRlep=0.1 
+photonCutList pt=2 eta=2.4 isol=1.8 dRmin=0.5 dRovEt2=0.012
+evselCutList hLepPtMin=40. ZMassLow=60. ZMassHigh=120. maxJetPt=60. maxMET=200. minDRLP=0.2
+###############
+#inputFiles
+inputFile /home/sinpcms/GOURAB/Delphes-3.4.2/test1.root
+readGenInfo 0
+dumpGenInfo 0
+eventId 1 895751 20
+END

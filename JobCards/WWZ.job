@@ -1,0 +1,20 @@
+START
+dataType mc
+lumiWtList xsec=0.1651 intLumi=3000000 nevents=100000
+histFile  WWZ_hist.root
+maxEvent -1
+#Cuts
+muonCutList eta=2.4 pt=7. iso=0.15.
+electronCutList pt=7. eta=2.5 iso=0.11.
+tauCutList eta=2.5 pt=20. dz=0.2 muVeto=0.5 eleVeto=0.5 isol=0.5
+jetCutList eta=4.7 pt=20 mindRlep=0.1 
+photonCutList pt=2 eta=2.4 isol=1.8 dRmin=0.5 dRovEt2=0.012
+evselCutList hLepPtMin=60 ZMassLow=60. ZMassHigh=120. maxJetPt=60. maxMET=200. minDRLP=0.2
+#inputFiles
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WWZ/WWZ_Delphes_3.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WWZ/WWZ_Delphes_2.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WWZ/WWZ_Delphes_1.root
+readGenInfo 0
+dumpGenInfo 0
+eventId 1 895751 20
+END

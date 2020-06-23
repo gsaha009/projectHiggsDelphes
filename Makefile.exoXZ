@@ -1,0 +1,58 @@
+UNAME  = $(shell uname)
+EXE    = exoXZ
+ 
+VPATH  = .:./interface
+vpath %.h ./interface
+
+CSUF   = cc
+HSUF   = h
+DICTC  = Dict.$(CSUF)
+DICTH  = $(patsubst %.$(CSUF),%.h,$(DICTC))
+
+SRCS   = src/DelphesClasses.cc \
+         src/AnaUtil.cc \
+         src/exoXZmain.cc \
+	 src/ExoXZ.cc \
+	 src/MVASkim.cc \
+	 src/MVAnalysis.cc
+	 
+OBJS   = $(patsubst %.$(CSUF), %.o, $(SRCS))
+
+DEBUG_FLAG = -g0 -O3
+CXX      = g++
+LDFLAGS  = $(DEBUG_FLAG)
+SOFLAGS  = -shared 
+INCLUDES_H = -I/home/GOURAB/Delphes-3.4.2 -I/home/sinpcms/GOURAB/Delphes-3.4.2/external
+INCLUDES_L = -L/home/sinpcms/GOURAB/Delphes-3.4.2
+CXXFLAGS = $(DEBUG_FLAG) -std=c++14 -Wall -Wextra -Wno-deprecated -pedantic -I./interface  -I./ $(INCLUDES_H)
+LIBS = $(INCLUDES_L) -lDelphes
+
+# Add names of the header files which you do want to create dictionary of
+#HDRS_DICT = interface/SortableObject.h interface/DelphesClasses.h interface/LinkDef.h
+#HDRS_DICT = interface/SortableObject.h interface/DelphesClasses.h
+HDRS_DICT = interface/DelphesClasses.h
+
+bin: $(EXE) 
+cling: $(DICTC) 
+all: 
+	make cling
+	make bin 
+ 
+$(DICTC): $(HDRS_DICT)
+	echo "Generating dictionary $(DICTC) and $(DICTH) ..."
+	rootcling -f $@ -rmf interface/AnalysisDelphes_xr.rootmap -c $(CXXFLAGS) $^
+	#rootcling -f $@ -c $(CXXFLAGS) $^	  
+	mv $(DICTC) src/ 
+	cp Dict_rdict.pcm src/
+
+$(EXE): $(OBJS) src/Dict.o
+	$(CXX) $(LDFLAGS) $^ -o $@ $(LIBS) `root-config --libs`  -lTMVA 
+ 
+# Create object files
+%.o : %.$(CSUF)
+	$(CXX) $(CXXFLAGS) `root-config --cflags` -o $@ -c $<
+
+# Clean 
+.PHONY   : clean 
+clean : 
+	@-rm $(OBJS) $(EXE) src/$(DICTC) src/Dict.o

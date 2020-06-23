@@ -1,0 +1,115 @@
+START
+dataType mc
+lumiWtList xsec=700.0 intLumi=3000000 nevents=100000
+histFile  TTJets_DiLept_hist.root
+maxEvent -1
+#Cuts
+muonCutList eta=2.4 pt=7. iso=0.15.
+electronCutList pt=7. eta=2.5 iso=0.11.
+tauCutList eta=2.5 pt=20. dz=0.2 muVeto=0.5 eleVeto=0.5 isol=0.5
+jetCutList eta=4.7 pt=20 mindRlep=0.1 
+photonCutList pt=2 eta=2.4 isol=1.8 dRmin=0.5 dRovEt2=0.012
+evselCutList hLepPtMin=60 ZMassLow=60. ZMassHigh=120. maxJetPt=60. maxMET=200. minDRLP=0.2
+#inputFiles
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_6.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_25.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_9.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_16.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_5.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_1.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_13.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_12.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_15.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_19.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_18.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_3.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_20.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_24.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_22.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_11.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_14.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_4.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_17.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_10.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_8.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_28.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_2.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_23.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_7.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_27.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_21.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_30.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_29.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_43.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_40.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_45.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_35.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_32.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_39.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_42.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_38.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_41.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_44.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_31.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_33.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_37.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_36.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_26.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_34.root
+#inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_78.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_58.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_55.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_89.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_94.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_51.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_59.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_100.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_65.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_48.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_92.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_86.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_84.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_75.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_63.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_64.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_50.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_76.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_69.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_60.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_67.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_49.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_74.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_72.root
+#inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_66.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_87.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_91.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_70.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_56.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_68.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_61.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_71.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_93.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_82.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_52.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_90.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_98.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_77.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_97.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_73.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_80.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_79.root
+#inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_62.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_88.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_57.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_96.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_85.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_46.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_54.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_95.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_81.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_47.root
+inputFile /media/lacie8tby/Exotic/Delphes/2017/TTJets_DiLept/TTJets_DiLept_Delphes_53.root
+readGenInfo 0
+dumpGenInfo 0
+eventId 1 895751 20
+END

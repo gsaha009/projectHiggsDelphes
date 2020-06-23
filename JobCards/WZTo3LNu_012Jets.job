@@ -1,0 +1,67 @@
+START
+dataType mc
+lumiWtList xsec=1.217 intLumi=3000000 nevents=1500000
+histFile  WZTo3LNu_012Jets_hist.root
+maxEvent -1
+#Cuts
+muonCutList eta=2.4 pt=7. iso=0.15
+electronCutList pt=7. eta=2.5 iso=0.11
+tauCutList eta=2.5 pt=20 dz=0.2 muVeto=0.5 eleVeto=0.5 isol=0.5
+jetCutList eta=4.7 pt=20 mindRlep=0.1 
+photonCutList pt=2 eta=2.4 isol=1.8 dRmin=0.5 dRovEt2=0.012
+evselCutList hLepPtMin=70. ZMassLow=75. ZMassHigh=105. maxJetPt=60. maxMET=200. minDRLP=0.2
+#inputFiles
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_0.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_1.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_2.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_3.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_4.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_5.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_6.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_7.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_8.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_9.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_10.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_11.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_12.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_13.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_14.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_15.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_16.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_17.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_18.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_19.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_20.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_21.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_22.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_23.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_24.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_25.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_26.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_27.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_28.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_29.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_30.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_31.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_32.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_33.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_34.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_35.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_36.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_37.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_38.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_39.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_40.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_41.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_42.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_43.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_44.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_45.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_46.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_47.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_48.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/WZTo3LNu_012Jets/WZTo3LNu_012J_14TeV_49.root
+readGenInfo 0
+dumpGenInfo 0
+eventId 1 895751 20
+END

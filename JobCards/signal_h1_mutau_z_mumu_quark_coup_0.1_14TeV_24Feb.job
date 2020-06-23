@@ -1,0 +1,28 @@
+START
+dataType mc
+lumiWtList xsec=0.0000824 intLumi=3000000 nevents=100000
+createMVATree 1
+readMVA 0
+MVAnetwork BDT
+MVAxmlFile /home/gsaha/DelphesHiggsProjectweights/TMVAClassification_BDT.weights.xml
+mvaInputFile signal_FTree.root
+lumiWtList xsec=8.059 intLumi=35.900 nevents=99700
+histFile  signal_h1_mutau_z_mumu_quark_coup_0.1_14TeV_hist_24Feb.root
+maxEvent -1
+#Cuts
+muonCutList eta=2.4 pt=7. iso=0.15
+electronCutList pt=7. eta=2.5 iso=0.11
+tauCutList eta=2.5 pt=20. dz=0.2 muVeto=0.5 eleVeto=0.5 isol=0.5
+jetCutList eta=4.7 pt=20 mindRlep=0.1 
+photonCutList pt=2 eta=2.4 isol=1.8 dRmin=0.5 dRovEt2=0.012
+evselCutList hLepPtMin=40. ZMassLow=60. ZMassHigh=120. maxJetPt=60. maxMET=200. minDRLP=0.2
+#inputFiles
+inputFile /media/lacie8tby/Exotic/Delphes/2016/Signal_pp_1tau3mu_1tau1mu2e_signal_quark_coup_0.1_14TeV_delphes_24Feb/pp_1tau3mu_1tau1mu2e_signal_quark_coup_0.1_14TeV_delphes_00.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/Signal_pp_1tau3mu_1tau1mu2e_signal_quark_coup_0.1_14TeV_delphes_24Feb/pp_1tau3mu_1tau1mu2e_signal_quark_coup_0.1_14TeV_delphes_01.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/Signal_pp_1tau3mu_1tau1mu2e_signal_quark_coup_0.1_14TeV_delphes_24Feb/pp_1tau3mu_1tau1mu2e_signal_quark_coup_0.1_14TeV_delphes_02.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/Signal_pp_1tau3mu_1tau1mu2e_signal_quark_coup_0.1_14TeV_delphes_24Feb/pp_1tau3mu_1tau1mu2e_signal_quark_coup_0.1_14TeV_delphes_03.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/Signal_pp_1tau3mu_1tau1mu2e_signal_quark_coup_0.1_14TeV_delphes_24Feb/pp_1tau3mu_1tau1mu2e_signal_quark_coup_0.1_14TeV_delphes_04.root
+readGenInfo 1
+dumpGenInfo 1
+eventId 1 895751 20
+END

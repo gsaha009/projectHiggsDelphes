@@ -1,0 +1,18 @@
+START
+dataType mc
+lumiWtList xsec=700.0 intLumi=35900 nevents=100000
+histFile  TT2J_InputSiddharth_control.root
+maxEvent -1
+#Cuts
+muonCutList eta=2.4 pt=7. iso=0.15.
+electronCutList pt=7. eta=2.5 iso=0.11.
+tauCutList eta=2.3 pt=20. dz=0.2 muVeto=0.5 eleVeto=0.5 isol=0.5
+jetCutList eta=4.7 pt=20 mindRlep=0.1 
+photonCutList pt=2 eta=2.4 isol=1.8 dRmin=0.5 dRovEt2=0.012
+evselCutList hLepPtMin=60 ZMassLow=60. ZMassHigh=120. maxJetPt=60. maxMET=40. minDRLP=0.2
+#inputFiles
+inputFile /home/gsaha/DelphesHiggsProject/INPUT/tt_2j_match_13TeV_W_leptonic.root
+readGenInfo 1
+dumpGenInfo 0
+eventId 1 895751 20
+END

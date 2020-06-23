@@ -1,0 +1,77 @@
+START
+dataType mc
+lumiWtList xsec=700.0 intLumi=35900 nevents=100000
+histFile  TT2J_IACS_outPut_control.root
+maxEvent -1
+#Cuts
+muonCutList eta=2.4 pt=7. iso=0.15.
+electronCutList pt=7. eta=2.5 iso=0.11.
+tauCutList eta=2.3 pt=20. dz=0.2 muVeto=0.5 eleVeto=0.5 isol=0.5
+jetCutList eta=4.7 pt=20 mindRlep=0.1 
+photonCutList pt=2 eta=2.4 isol=1.8 dRmin=0.5 dRovEt2=0.012
+evselCutList hLepPtMin=60 ZMassLow=60. ZMassHigh=120. maxJetPt=60. maxMET=40. minDRLP=0.2
+#inputFiles
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_1.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_2.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_3.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_4.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_5.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_6.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_7.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_8.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_9.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_10.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_11.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_12.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_13.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_14.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_15.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_16.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_17.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_18.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_19.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_20.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_21.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_22.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_23.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_24.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_25.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_26.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_27.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_28.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_29.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_30.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_31.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_32.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_33.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_34.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_35.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_36.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_37.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_38.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_39.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_40.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_41.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_42.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_43.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_44.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_45.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_46.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_47.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_48.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_49.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_50.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_51.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_52.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_53.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_54.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_55.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_56.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_57.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_58.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_59.root
+inputFile /home/sinpcms/GOURAB/TT2Jets/TT2Jets_60.root
+readGenInfo 1
+dumpGenInfo 0
+eventId 1 895751 20
+END

@@ -1,0 +1,79 @@
+START
+dataType mc
+lumiWtList xsec=101.6 intLumi=3000000 nevents=100000
+histFile  DY3JetsToLL_hist.root
+maxEvent -1
+#Cuts
+muonCutList eta=2.4 pt=7. iso=0.15.
+electronCutList pt=7. eta=2.5 iso=0.11.
+tauCutList eta=2.5 pt=20. dz=0.2 muVeto=0.5 eleVeto=0.5 isol=0.5
+jetCutList eta=4.7 pt=20 mindRlep=0.1 
+photonCutList pt=2 eta=2.4 isol=1.8 dRmin=0.5 dRovEt2=0.012
+evselCutList hLepPtMin=60 ZMassLow=60. ZMassHigh=120. maxJetPt=60. maxMET=200. minDRLP=0.2
+#inputFiles
+#inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_31.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_62.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_24.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_55.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_54.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_12.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_40.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_25.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_20.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_39.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_56.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_3.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_49.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_8.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_7.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_52.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_47.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_19.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_1.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_13.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_22.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_15.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_38.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_2.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_37.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_61.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_43.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_28.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_51.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_9.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_48.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_11.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_45.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_33.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_36.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_16.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_42.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_58.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_21.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_50.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_34.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_44.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_10.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_29.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_30.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_27.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_46.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_26.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_59.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_57.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_14.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_53.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_17.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_41.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_35.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_23.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_4.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_18.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_5.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_32.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_60.root
+inputFile /media/lacie8tby/Exotic/Delphes/2016/DY3JetsToLL/DY3JetsToLL_Delphes_6.root
+readGenInfo 0
+dumpGenInfo 0
+eventId 1 895751 20
+END
