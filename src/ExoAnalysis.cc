@@ -27,7 +27,7 @@
 
 #include "AnaUtil.h"
 #include "ZCandidate.h"
-#include "ExoHiggsAna.h"
+#include "ExoAnalysis.h"
 
 
 using std::cout;
@@ -48,7 +48,7 @@ using namespace ZSpace;
 // -----------
 // Constructor
 // -----------
-ExoHiggsAna::ExoHiggsAna()
+ExoAnalysis::ExoAnalysis()
 {
   fileList_.clear();
   hmap_.clear();
@@ -57,16 +57,13 @@ ExoHiggsAna::ExoHiggsAna()
 // ----------
 // Destructor
 // ----------
-ExoHiggsAna::~ExoHiggsAna() 
+ExoAnalysis::~ExoAnalysis() 
 {}
 
 // -------------------------------------------------------
 // Prepare for the run, do necessary initialisation etc.
 // -------------------------------------------------------
-//bool ExoHiggsAna::beginJob(const string& inputFile, string& outputFile)  
-//bool ExoHiggsAna::beginJob(const std::string& jobFile, std::string& outputFile)  
-//bool ExoHiggsAna::beginJob(const std::string& jobFile)  
-bool ExoHiggsAna::beginJob()  
+bool ExoAnalysis::beginJob()  
 { 
   histf = new TFile (histFile_.c_str(), "RECREATE");
   if (!histf) return false;
@@ -75,30 +72,6 @@ bool ExoHiggsAna::beginJob()
   histf->mkdir("LepPairSelection");
   histf->mkdir("Analysis");
 
-
-  /*
-  chain = new TChain("Delphes");
-  //string in (inputFile);
-  //string out (outputFile);
-  string file;
-  int line=0;
-
-  std::ifstream myf (inputFile.c_str(), ios::in);
-  std::cout<<"*****Making Chain*****"<<std::endl;
-  while (!myf.eof()) {
-    line++;
-    myf >> file;
-    std::cout<<"Adding File: "<<file<<std::endl;
-    if (myf) chain->Add(file.c_str());
-  }
-  treeReader = new ExRootTreeReader(chain);
-  if(!treeReader) return false;
-
-  std::cout<<"*****Booking Histograms*****"<<std::endl;
-  bookHistograms();
-  std::cout<<"*****Starting Event Loop*****"<<std::endl;
-  eventLoop(treeReader);
-  */
 
   std::cout<<"*****Booking Histograms*****"<<std::endl;
   bookHistograms();
@@ -130,7 +103,7 @@ bool ExoHiggsAna::beginJob()
 // ---------------
 // Book histograms
 // ---------------
-void ExoHiggsAna::bookHistograms()
+void ExoAnalysis::bookHistograms()
 {
   histf->cd();
   histf->cd("ObjectSelection");
@@ -216,7 +189,7 @@ void ExoHiggsAna::bookHistograms()
   histf->cd("Analysis");
 
   //Event Hists
-  new TH1D("evtCutFlow", "Event CutFlow", 12, -0.5, 11.5);
+  new TH1D("evtCutFlow", "Event CutFlow", 18, -0.5, 17.5);
   //  new TH1D("eventWt", "HepMCEvent Weight",100000000000, -5000000000., 5000000000.0);
   new TH1D("eventWt_", "HepMCEvent Weight",3, -1.5, 1.5);
   new TH1D("nvtx", "Number of Primary vertices", 60, -0.5, 59.5);
@@ -348,7 +321,7 @@ void ExoHiggsAna::bookHistograms()
   new TH1D("dPhiM", "DeltaPhi", 100, 0.0, 10.0);
   new TH1D("dRM", "DeltaR", 100, 0.0, 10.0);
 
-  
+  new TH1D("mvaOutput", "", 1000, -5.0, 5.0);  
   //Signal
 
   
@@ -360,7 +333,7 @@ void ExoHiggsAna::bookHistograms()
 // Clear vectors before event loop
 // -------------------------------
 
-void ExoHiggsAna::clearLists() {
+void ExoAnalysis::clearLists() {
   MuonColl.clear();
   ElectronColl.clear();
   TauColl.clear();
@@ -371,7 +344,7 @@ void ExoHiggsAna::clearLists() {
 // The main event loop
 // -------------------
 
-void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
+void ExoAnalysis::eventLoop(ExRootTreeReader *treeReader)
 {
   /////////////////////////Objects for analysis////////////////////////////
   TClonesArray *BrGen     = treeReader->UseBranch("Particle");
@@ -388,19 +361,25 @@ void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
   size_t nEvents = (maxEvt_ < 0) ? nEntries : maxEvt_;
   cout << "** Starting Analysis with  " << nEvents << " events" << endl;
 
+  double lumiFac = lumiWt(nEvents, maxEvt_);
+  cout << endl
+       << "evtWeightSum: " << setw(10) << setprecision(0) << nEvents << endl
+       << "      lumiWt: " << setw(10) << setprecision(5) << lumiFac
+       << endl;
+
   ////////////////////////////////////********Event Loop*********//////////////////////////////////// 
   for (size_t iEntry = 0; iEntry < nEvents; ++iEntry) {
     bool verbose {false};
-    if ((iEntry/10000) > 0 && iEntry%10000 == 0) verbose = true;
+    if ((iEntry/100000) > 0 && iEntry%100000 == 0) verbose = true;
     if (verbose) std::cout<<"Events processed :"<<"\t"<<iEntry<<std::endl;
 
     clearLists(); // reset analysis related lists for each event
     treeReader->ReadEntry(iEntry);// Load selected branches with data from specified event
 
     //////////////////EventWeight and EventWeightSum//////////////////
-    int evWt = 1;
+    double evWt = 1.0;
     
-    HepMCEvent *ev = (HepMCEvent*)BrEvent -> At(0);
+    //    HepMCEvent *ev = (HepMCEvent*)BrEvent -> At(0);
     
     //    AnaUtil::fillHist1D("eventWt_raw", ev->Weight, 1.0);
     //   std::cout<<BrWeight->GetEntriesFast()<<"\t"<<ev->Weight<<std::endl;
@@ -408,8 +387,10 @@ void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
     //double weight = ((Weight*)BrWeight->At(0))->Weight;
     //AnaUtil::fillHist1D("eventWt", weight, 1.0);
     //evWt = (weight > 0.0) ? 1 : -1;
-    AnaUtil::fillHist1D("eventWt_", evWt, 1.0);
-    evtWtSum_ += evWt;
+    //    AnaUtil::fillHist1D("eventWt_", evWt, 1.0);
+    //    evtWtSum_ += evWt;
+
+    evWt = evWt*lumiFac; //Lumi Scaling
     /////////////////////////////////////////////////////////////////
 
 
@@ -464,8 +445,6 @@ void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
     AnaUtil::fillHist1D("nRawMuon", nmuon, evWt);
     int njet  = BrJet->GetEntriesFast();
     AnaUtil::fillHist1D("nRawJet", njet, evWt);
-    //    int ntau = BrTau->GetEntries();
-    //    AnaUtil::fillHist1D("nRawTau", ntau, evWt);
     MissingET* met_ = (MissingET*) BrMet->At(0);
     AnaUtil::fillHist1D("met", (met_-> MET), evWt);
 
@@ -663,7 +642,6 @@ void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
     AnaUtil::fillHist1D("hLepPt", hLepPt, evWt);
 
     //    if (hLepPt < AnaUtil::cutValue(evselCutMap(), "hLepPtMin")) continue;
-    if (hLepPt < 70) continue;
     AnaUtil::fillHist1D("evtCutFlow", 2, evWt);
 
 
@@ -687,8 +665,7 @@ void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
     // The first Z candidate
     const ZCandidate& ZCand = ZCandList[0];
     AnaUtil::fillHist1D ("Z1CandMass", ZCand.mass, evWt);
-    if (ZCand.mass < AnaUtil::cutValue(evselCutMap(), "ZMassLow") ||
-        ZCand.mass > AnaUtil::cutValue(evselCutMap(), "ZMassHigh")) continue;
+    if (ZCand.massDiff > 15.0) continue; 
     AnaUtil::fillHist1D("evtCutFlow", 4, evWt);
 
     TLorentzVector _l1p4;
@@ -749,29 +726,31 @@ void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
     std::vector<ZCandidate> leptonPairCandList;
     histf->cd();
     histf->cd("LepPairSelection"); //To fill the histograms mentioned in leptonPairSelector function
-    auto result = leptonPairSelector(MuonColl, TauColl, ZCand, leptonPairCandList, 170.0, evWt, AnaUtil::cutValue(evselCutMap(), "minDRLP"));
+    auto result = (_isH2Z) ? leptonPairSelector(MuonColl, TauColl, ZCand, leptonPairCandList, 170.0, evWt, AnaUtil::cutValue(evselCutMap(), "minDRLP")) 
+      : leptonPairSelector(MuonColl, TauColl, ZCand, leptonPairCandList, 70.0, evWt, AnaUtil::cutValue(evselCutMap(), "minDRLP"));
     histf->cd();
     histf->cd("Analysis");
     if (leptonPairCandList.empty()) continue;
     AnaUtil::fillHist1D("evtCutFlow", 8, evWt);
-
-    if (leptonPairCandList.size() > 1)
-      std::sort(std::begin(leptonPairCandList), std::end(leptonPairCandList), massComparator);
+    if (leptonPairCandList.size() > 1) {
+      if (_isXZ) {
+	if (iEntry == 0) std::cout<<"XZ\n";
+	std::sort(std::begin(leptonPairCandList), std::end(leptonPairCandList), massComparator);
+      }      
+      else if (_isH2Z) {
+	if (iEntry == 0) std::cout<<"H2Z\n";
+	std::sort(std::begin(leptonPairCandList), std::end(leptonPairCandList), massComparator);
+      }
+      else {
+	std::cout<<"Mention isXZ or isH2Z !!!\n";
+	  }
+    }
     const ZCandidate& h1Cand = leptonPairCandList[0];
     AnaUtil::fillHist1D("h1Mass", h1Cand.mass, evWt);
 
     AnaUtil::fillHist1D ("ZhDEta", (ZCand.p4.Eta()-h1Cand.p4.Eta()), evWt);
     AnaUtil::fillHist1D ("ZhDPhi", TVector2::Phi_mpi_pi(ZCand.p4.Phi()-h1Cand.p4.Phi()), evWt);
     AnaUtil::fillHist1D ("ZhDR", (ZCand.p4).DeltaR(h1Cand.p4), evWt);
-
-    /*    TLorentzVector _lp4;
-    _lp4.SetPtEtaPhiE((h1Cand.p4).Pt(), 0.0, (h1Cand.p4).Phi(), (h1Cand.p4).E());
-    TLorentzVector _metp4;
-    _metp4.SetPtEtaPhiE(met_->MET, 0.0, met_->Phi, met_->MET);
-    TLorentzVector _hp4= (_lp4 + _metp4);
-    AnaUtil::fillHist1D ("_hmT", _hp4.M(), evWt);
-    AnaUtil::fillHist1D ("_hmToverPt", _hp4.M()/(h1Cand.p4).Pt(), evWt);
-    */
 
 
     TLorentzVector h1l1p4 = h1Cand.l1P4;
@@ -784,50 +763,13 @@ void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
     AnaUtil::fillHist1D ("h2MT_2", h2MT_2, evWt);
     AnaUtil::fillHist1D ("h2MToverPt_2", h2MT_2/(h1l1p4.Pt()+h1l2p4.Pt()), evWt);
 
-    //    if (h1l2p4.Pt() < 70) continue;
     double h2MT_3 = Calculate_TotalMT(h1l1p4, h1l2p4, _metp4);
-    
     AnaUtil::fillHist1D ("h2MT_3", h2MT_3, evWt);
     AnaUtil::fillHist1D ("h2MToverPt_3", h2MT_3/(h1l1p4.Pt()+h1l2p4.Pt()), evWt);
 
     double corr_3 = 1.0/(1 + metp4.Px()/h1l2p4.Px());
-    //    if (corr > 0.0 && corr <= 10.00) std::cout<<"corrGood: "<<corr<<"  "<<metp4.Px()<<"  "<<tap4.Px()<<std::endl;
-    //    else std::cout<<"corrBad: "<<corr<<"  "<<metp4.Px()<<"  "<<tap4.Px()<<std::endl;
-
-
     AnaUtil::fillHist1D("muCharge", h1Cand.l1Charge, evWt);
     
-    if (h1Cand.l1Charge > 0.0) {
-      AnaUtil::fillHist1D ("ZMuDEta+", (ZCand.p4.Eta()-h1l1p4.Eta()), evWt);
-      AnaUtil::fillHist1D ("ZMuDPhi+", TVector2::Phi_mpi_pi(ZCand.p4.Phi()-h1l1p4.Phi()), evWt);
-      AnaUtil::fillHist1D ("ZMuDR+", (ZCand.p4).DeltaR(h1l1p4), evWt);
-      AnaUtil::fillHist1D ("ZTauDEta+", (ZCand.p4.Eta()-h1l2p4.Eta()), evWt);
-      AnaUtil::fillHist1D ("ZTauDPhi+", TVector2::Phi_mpi_pi(ZCand.p4.Phi()-h1l2p4.Phi()), evWt);
-      AnaUtil::fillHist1D ("ZTauDR+", (ZCand.p4).DeltaR(h1l2p4), evWt);
-      double dEtaP = std::fabs((ZCand.p4.Eta()-h1l2p4.Eta()) - (ZCand.p4.Eta()-h1l1p4.Eta()));
-      double dPhiP = std::fabs(TVector2::Phi_mpi_pi(ZCand.p4.Phi()-h1l2p4.Phi()) - TVector2::Phi_mpi_pi(ZCand.p4.Phi()-h1l1p4.Phi()));
-      double dRP   = std::fabs((ZCand.p4).DeltaR(h1l2p4) - (ZCand.p4).DeltaR(h1l1p4));
-      AnaUtil::fillHist1D ("dEtaP", dEtaP, evWt);
-      AnaUtil::fillHist1D ("dPhiP", dPhiP, evWt);
-      AnaUtil::fillHist1D ("dRP", dRP, evWt);
-    }
-    else {
-      AnaUtil::fillHist1D ("ZMuDEta-", (ZCand.p4.Eta()-h1l1p4.Eta()), evWt);
-      AnaUtil::fillHist1D ("ZMuDPhi-", TVector2::Phi_mpi_pi(ZCand.p4.Phi()-h1l1p4.Phi()), evWt);
-      AnaUtil::fillHist1D ("ZMuDR-", (ZCand.p4).DeltaR(h1l1p4), evWt);
-      AnaUtil::fillHist1D ("ZTauDEta-", (ZCand.p4.Eta()-h1l2p4.Eta()), evWt);
-      AnaUtil::fillHist1D ("ZTauDPhi-", TVector2::Phi_mpi_pi(ZCand.p4.Phi()-h1l2p4.Phi()), evWt);
-      AnaUtil::fillHist1D ("ZTauDR-", (ZCand.p4).DeltaR(h1l2p4), evWt);
-      double dEtaM = std::fabs((ZCand.p4.Eta()-h1l2p4.Eta()) - (ZCand.p4.Eta()-h1l1p4.Eta()));
-      double dPhiM = std::fabs(TVector2::Phi_mpi_pi(ZCand.p4.Phi()-h1l2p4.Phi()) - TVector2::Phi_mpi_pi(ZCand.p4.Phi()-h1l1p4.Phi()));
-      double dRM   = std::fabs((ZCand.p4).DeltaR(h1l2p4) - (ZCand.p4).DeltaR(h1l1p4));
-      AnaUtil::fillHist1D ("dEtaM", dEtaM, evWt);
-      AnaUtil::fillHist1D ("dPhiM", dPhiM, evWt);
-      AnaUtil::fillHist1D ("dRM", dRM, evWt);
-
-    }
-
-
 
     TLorentzVector tap4_3;
     tap4_3.SetPtEtaPhiE((1.0/corr_3)*h1l2p4.Pt(), h1l2p4.Eta(), h1l2p4.Phi(), h1l2p4.E());
@@ -849,7 +791,7 @@ void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
     AnaUtil::fillHist1D ("METovHT_noTa", (met_->MET)/(ZCand.l1P4.Pt() + ZCand.l2P4.Pt() + h1Cand.l1P4.Pt()), evWt);
     AnaUtil::fillHist1D ("METovHT_Ta", (met_->MET)/(ZCand.l1P4.Pt() + ZCand.l2P4.Pt() + h1Cand.l1P4.Pt() + h1Cand.l2P4.Pt()), evWt);
 
-    if (h1l1p4.DeltaR(h1l2p4) > 2.0) continue;
+    //if (h1l1p4.DeltaR(h1l2p4) > 2.0) continue;
     AnaUtil::fillHist1D("evtCutFlow", 9, evWt);    
     
 
@@ -870,7 +812,6 @@ void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
     }
     
     //lT
-    
     double lT = 0.0;
     for (auto &e: ElectronColl){
       lT += e.PT;
@@ -891,11 +832,11 @@ void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
     //    if ( (met_-> MET) > AnaUtil::cutValue(evselCutMap(), "maxMET")) continue;
     //    AnaUtil::fillHist1D ("LT_PreCut", (lT+hT), evWt);
     AnaUtil::fillHist1D ("LT_PreCut", lT, evWt);
-    if (lT < 200.0) continue;
+    //if (lT < 200.0) continue;
     AnaUtil::fillHist1D("evtCutFlow", 10, evWt);
 
     AnaUtil::fillHist1D ("nbJets", nbJet, evWt);
-    if (hasbJet) continue;
+    //if (hasbJet) continue;
     AnaUtil::fillHist1D("evtCutFlow", 11, evWt);
 
     //_________________________________________End of PreSelection_______________________________________________//
@@ -907,8 +848,15 @@ void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
     if (skimObj_) {
       TreeVariables varList;
 
+      varList.hLepPt       = hLepPt;
       varList.met          = met_->MET;
-      varList.hT           = hT;
+      varList.mTovSt       = h2MT_3/(h1l1p4.Pt()+h1l2p4.Pt());
+      varList.muTaDR       = h1l1p4.DeltaR(h1l2p4);
+      varList.muZDR        = (ZCand.p4).DeltaR(h1l1p4);
+      varList.colTest      = (metp4.Px()/metp4.Py() - h1l2p4.Px()/h1l2p4.Py());
+      varList.colMass      = (mup4+tap4_3).M();
+      varList.tauPt        = h1l2p4.Pt();
+      varList.ST           = hT+lT;
       
       skimObj_->fill(varList);
     }
@@ -920,8 +868,12 @@ void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
     if (_readMVA) {
       InputVariables varlist;
 
+      varlist.hLepPt       = hLepPt;
       varlist.met          = met_->MET;
-      varlist.hT           = hT;
+      varlist.mTovSt       = h2MT_3/(h1l1p4.Pt()+h1l2p4.Pt());
+      varlist.muTaDR       = h1l1p4.DeltaR(h1l2p4);
+      varlist.muZDR        = (ZCand.p4).DeltaR(h1l1p4);
+      varlist.tauPt        = h1l2p4.Pt();
 
       mvaOut = _mvaObj->evaluate(_MVAnetwork, varlist);
     }
@@ -930,8 +882,27 @@ void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
     histf->cd("Analysis");
 
     AnaUtil::fillHist1D ("mvaOutput", mvaOut, evWt);
+
+    if (mvaOut < 0.09) continue;
+    AnaUtil::fillHist1D("evtCutFlow", 12, evWt);
     
-    
+    if (mvaOut < 0.1) continue;
+    AnaUtil::fillHist1D("evtCutFlow", 13, evWt);
+
+
+    if (mvaOut < 0.11) continue;
+    AnaUtil::fillHist1D("evtCutFlow", 14, evWt);
+
+    if (mvaOut < 0.14) continue;
+    AnaUtil::fillHist1D("evtCutFlow", 15, evWt);
+
+
+    if (mvaOut < 0.17) continue;
+    AnaUtil::fillHist1D("evtCutFlow", 16, evWt);
+
+    if (mvaOut < 0.2) continue;
+    AnaUtil::fillHist1D("evtCutFlow", 17, evWt);
+
     if (verbose) {
       cout << ">>> "
 	   << ", <nMuon>: "     << MuonColl.size()
@@ -943,7 +914,7 @@ void ExoHiggsAna::eventLoop(ExRootTreeReader *treeReader)
   // Analysis over
 }
 
-void ExoHiggsAna::endJob() {
+void ExoAnalysis::endJob() {
   
   histf->cd();
   histf->cd("Analysis");
@@ -959,9 +930,16 @@ void ExoHiggsAna::endJob() {
       "8) have hCand      : ",
       "9) h2_l1l2dR <= 2.0: ",
       "10) lepSumPt > 200 : ",
-      "11)has no b Jet    : "
+	"11)no b          : ",
+	"12)mva > 0.09    : ",
+	"13)mva > 0.10    : ",
+	"14)mva > 0.11    : ",
+	"15)mva > 0.14    : ",
+	"16)mva > 0.17    : ",
+	"17)mva > 0.20    : "
 	  };
   AnaUtil::showEfficiency("evtCutFlow", evLabels, "Event Selection");  
+  /*
   double lumiFac = 1.0;
   lumiFac = lumiWt(evtWtSum_, maxEvt_);
   cout << endl
@@ -969,23 +947,23 @@ void ExoHiggsAna::endJob() {
        << "      lumiWt: " << setw(10) << setprecision(5) << lumiFac
        << endl;
   AnaUtil::scaleHistogram("evtCutFlow", lumiFac);
-  //  AnaUtil::showEfficiency("evtCutFlow", evLabels, "Event Selection (Weighted)", "Events", 1);
-  AnaUtil::showEfficiency("evtCutFlow", evLabels, "Event Selection (lumiScaled)");
+  */
+  //  AnaUtil::showEfficiency("evtCutFlow", evLabels, "Event Selection (lumiScaled)");
 }
 
 
-void ExoHiggsAna::closeHistFiles(){
+void ExoAnalysis::closeHistFiles(){
   histf->cd();
   histf->Write();
   histf->Close();
 }
-void ExoHiggsAna::closeFiles(){
+void ExoAnalysis::closeFiles(){
   closeHistFiles();
   if (skimObj_ != nullptr) skimObj_->close();
   delete treeReader;
   delete chain;
 }
-bool ExoHiggsAna::readJob(const string& jobFile, int& nFiles)
+bool ExoAnalysis::readJob(const string& jobFile, int& nFiles)
 {
   // Open the file containing the datacards
   ifstream fin(jobFile.c_str(), ios::in);    
@@ -1042,6 +1020,10 @@ bool ExoHiggsAna::readJob(const string& jobFile, int& nFiles)
       _createMVATree = (atoi(value.c_str()) > 0) ? true : false;
     else if (key == "mvaInputFile")
       _mvaInputFile = value;
+    else if (key == "isXZ")
+      _isXZ = (atoi(value.c_str()) > 0) ? true : false;
+    else if (key == "isH2Z")
+      _isH2Z = (atoi(value.c_str()) > 0) ? true : false;
     else if (key == "eventId" && tokens.size() == 4)
       AnaUtil::buildMap(tokens, eventIdMap_);
     else {
@@ -1073,23 +1055,25 @@ bool ExoHiggsAna::readJob(const string& jobFile, int& nFiles)
   return true;
 }
 
-void ExoHiggsAna::printJob(ostream& os) const{
+void ExoAnalysis::printJob(ostream& os) const{
   os << endl;
   AnaUtil::showCuts(hmap_, os);
 }
 
 //******************************************Some More Functions (Make AnaBase and move them)***********************************************//
 
-double ExoHiggsAna::lumiWt(double evtWeightSum, int maxEvents) const{
+double ExoAnalysis::lumiWt(double evtWeightSum, int maxEvents) const{
   //  double nevt = (evtWeightSum > -1) ? evtWeightSum : AnaUtil::cutValue(lumiWtMap(), "nevents");
   double nevt = (evtWeightSum > -1) ? evtWeightSum : maxEvents;
   std::cout << "-- intLumi: " << AnaUtil::cutValue(lumiWtMap(), "intLumi")
+	    <<setprecision(5)
 	    << " xsec: " << AnaUtil::cutValue(lumiWtMap(), "xsec")
+	    <<setprecision(5)
 	    << " nevt: " << nevt << std::endl;
   return (AnaUtil::cutValue(lumiWtMap(), "intLumi") * AnaUtil::cutValue(lumiWtMap(), "xsec") / nevt);
 }
 
-int ExoHiggsAna::getMotherId(const GenParticle& gp, TClonesArray *gen, int& mmid) const {
+int ExoAnalysis::getMotherId(const GenParticle& gp, TClonesArray *gen, int& mmid) const {
   int pdgid = gp.PID;
   int indx = gp.M1;
   if (indx < 0) return -1;
@@ -1105,7 +1089,7 @@ int ExoHiggsAna::getMotherId(const GenParticle& gp, TClonesArray *gen, int& mmid
   return indx;
 }
 
-bool ExoHiggsAna::jetLeptonCleaning(const Jet& jet, std::vector <Muon> muList_, std::vector <Electron> eleList_, double dR) {
+bool ExoAnalysis::jetLeptonCleaning(const Jet& jet, std::vector <Muon> muList_, std::vector <Electron> eleList_, double dR) {
   TLorentzVector jetP4 = jet.P4();
   for (auto& m: muList_){
     AnaUtil::fillHist1D ("jetMuDR", jetP4.DeltaR(m.P4()), 1.0);
@@ -1118,7 +1102,7 @@ bool ExoHiggsAna::jetLeptonCleaning(const Jet& jet, std::vector <Muon> muList_, 
   return true;
 }
 
-void ExoHiggsAna::dumpGenInfo(TClonesArray *gen, ostream& os) {
+void ExoAnalysis::dumpGenInfo(TClonesArray *gen, ostream& os) {
   int ngen = gen->GetEntries();
   if (ngen == 0) return;
 

@@ -1,5 +1,5 @@
-#ifndef __ExoH2Z__hh
-#define __ExoH2Z__hh
+#ifndef __ExoAnalysis__hh
+#define __ExoAnalysis__hh
 
 #define NEL(x) (sizeof((x))/sizeof((x)[0]))
 
@@ -29,12 +29,12 @@
 #include "AnaUtil.h"
 #include "ZCandidate.h"
 
-#include "/home/sinpcms/GOURAB/Delphes-3.4.2/classes/DelphesClasses.h"
-#include "/home/sinpcms/GOURAB/Delphes-3.4.2/external/ExRootAnalysis/ExRootTreeReader.h"
-#include "/home/sinpcms/GOURAB/Delphes-3.4.2/external/ExRootAnalysis/ExRootTreeWriter.h"
-#include "/home/sinpcms/GOURAB/Delphes-3.4.2/external/ExRootAnalysis/ExRootTreeBranch.h"
-#include "/home/sinpcms/GOURAB/Delphes-3.4.2/external/ExRootAnalysis/ExRootResult.h"
-#include "/home/sinpcms/GOURAB/Delphes-3.4.2/external/ExRootAnalysis/ExRootUtilities.h"
+#include "/home/gsaha/Packages/Delphes-3.4.2/classes/DelphesClasses.h"
+#include "/home/gsaha/Packages/Delphes-3.4.2/external/ExRootAnalysis/ExRootTreeReader.h"
+#include "/home/gsaha/Packages/Delphes-3.4.2/external/ExRootAnalysis/ExRootTreeWriter.h"
+#include "/home/gsaha/Packages/Delphes-3.4.2/external/ExRootAnalysis/ExRootTreeBranch.h"
+#include "/home/gsaha/Packages/Delphes-3.4.2/external/ExRootAnalysis/ExRootResult.h"
+#include "/home/gsaha/Packages/Delphes-3.4.2/external/ExRootAnalysis/ExRootUtilities.h"
 
 #include "MVASkim.h"
 #include "MVAnalysis.h"
@@ -232,11 +232,11 @@ template<typename LVector1, typename LVector2, typename LVector3>
 }
 
 //************************Main Analysis Class Description*************************//
-class ExoH2Z {
+class ExoAnalysis {
     
 public:
-  ExoH2Z();
-  virtual ~ExoH2Z();
+  ExoAnalysis();
+  virtual ~ExoAnalysis();
   
   bool readGenInfo() const {return readGenInfo_;}
   bool isMC() const {return isMC_;}
@@ -296,6 +296,8 @@ public:
   //MVA
   bool _createMVATree {false};
   bool _readMVA {false};
+  bool _isXZ {false};
+  bool _isH2Z {false};
   std::string _mvaInputFile {""};
   std::string _MVAnetwork {""};
   std::string _MVAxmlFile {""};

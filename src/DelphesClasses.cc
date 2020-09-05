@@ -26,10 +26,10 @@
  *
  */
 
-#include "/home/sinpcms/GOURAB/Delphes-3.4.2/classes/DelphesClasses.h"
+#include "/home/gsaha/Packages/Delphes-3.4.2/classes/DelphesClasses.h"
 
-#include "/home/sinpcms/GOURAB/Delphes-3.4.2/classes/DelphesFactory.h"
-#include "/home/sinpcms/GOURAB/Delphes-3.4.2/classes/SortableObject.h"
+#include "/home/gsaha/Packages/Delphes-3.4.2/classes/DelphesFactory.h"
+#include "/home/gsaha/Packages/Delphes-3.4.2/classes/SortableObject.h"
 
 CompBase *GenParticle::fgCompare = 0;
 CompBase *Photon::fgCompare = CompPT<Photon>::Instance();
