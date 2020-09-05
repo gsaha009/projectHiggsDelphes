@@ -26,18 +26,18 @@
 #include "TClonesArray.h"
 #include "TLorentzVector.h"
 
-#include "/home/sinpcms/GOURAB/Delphes-3.4.2/classes/DelphesClasses.h"
+//#include "/home/sinpcms/GOURAB/Delphes-3.4.2/classes/DelphesClasses.h"
 
-#include "/home/sinpcms/GOURAB/Delphes-3.4.2/external/ExRootAnalysis/ExRootTreeReader.h"
-#include "/home/sinpcms/GOURAB/Delphes-3.4.2/external/ExRootAnalysis/ExRootTreeWriter.h"
-#include "/home/sinpcms/GOURAB/Delphes-3.4.2/external/ExRootAnalysis/ExRootTreeBranch.h"
-#include "/home/sinpcms/GOURAB/Delphes-3.4.2/external/ExRootAnalysis/ExRootResult.h"
-#include "/home/sinpcms/GOURAB/Delphes-3.4.2/external/ExRootAnalysis/ExRootUtilities.h"
+//#include "/home/sinpcms/GOURAB/Delphes-3.4.2/external/ExRootAnalysis/ExRootTreeReader.h"
+//#include "/home/sinpcms/GOURAB/Delphes-3.4.2/external/ExRootAnalysis/ExRootTreeWriter.h"
+//#include "/home/sinpcms/GOURAB/Delphes-3.4.2/external/ExRootAnalysis/ExRootTreeBranch.h"
+//#include "/home/sinpcms/GOURAB/Delphes-3.4.2/external/ExRootAnalysis/ExRootResult.h"
+//#include "/home/sinpcms/GOURAB/Delphes-3.4.2/external/ExRootAnalysis/ExRootUtilities.h"
 
 
 using namespace std;
 
-#include "ExoHiggsAna.h"
+#include "ExoAnalysis.h"
 
 using std::cout;
 using std::cerr;
@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
   // Create analysis object 
   cout << "=== Start of Analysis === " << endl;
 
-  ExoHiggsAna anaH;
+  ExoAnalysis anaH;
 
   TStopwatch timer;
   cout << "==> Start event loop now with " << endl;
